@@ -2,9 +2,10 @@ const btn = document.getElementById('power-btn');
 const statusPill = document.getElementById('status-pill');
 const statusText = document.getElementById('status-text');
 const toast = document.getElementById('toast');
+const holdRing = document.getElementById('hold-ring');
 const holdCircle = document.getElementById('hold-circle');
 
-const CIRCUMFERENCE = 408;
+const CIRCUMFERENCE = 2 * Math.PI * 65; // exact: ~408.41
 const HOLD_DURATION_MS = 5000;
 const HOLD_INTERVAL_MS = 50;
 
@@ -60,6 +61,7 @@ function clearHoldColor() {
 }
 
 function startHold() {
+  holdRing.classList.remove('resetting');
   holdProgress = 0;
   holdInterval = setInterval(() => {
     holdProgress += HOLD_INTERVAL_MS / HOLD_DURATION_MS * 100;
@@ -77,6 +79,7 @@ function cancelHold() {
   clearInterval(holdInterval);
   holdInterval = null;
   holdProgress = 0;
+  holdRing.classList.add('resetting');
   holdCircle.style.strokeDashoffset = CIRCUMFERENCE;
   btn.classList.remove('pressing');
   clearHoldColor();

@@ -119,10 +119,14 @@ h1 {
   fill: none;
   stroke: var(--danger-stroke);
   stroke-width: 3;
-  stroke-dasharray: 408;
-  stroke-dashoffset: 408;
+  stroke-dasharray: 408.41;
+  stroke-dashoffset: 408.41;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
+}
+
+.hold-ring.resetting circle {
+  transition: stroke-dashoffset 0.3s ease-out;
 }
 
 .power-btn {
