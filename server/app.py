@@ -16,6 +16,7 @@ WAKE_COMMAND = config['wake_command']
 SHUTDOWN_COMMAND = config['shutdown_command']
 PC_NAME = config.get('pc_name', 'gaming pc')
 PORT = config.get('port', 5000)
+HOST = config.get('host', '127.0.0.1')
 
 
 def ssh_wakpi(command):
@@ -58,4 +59,4 @@ def shutdown():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=PORT)
+    app.run(host=HOST, port=PORT)

@@ -4,4 +4,5 @@ gaming_pc_ip: your_gaming_pc_ip
 pc_name: your_pc_name
 wake_command: "python3 ~/wake-pc.py"
 shutdown_command: "python3 ~/shutdown-pc.py"
+host: 100.x.x.x  # Tailscale IP — run `tailscale ip` to find yours
 port: 5000
