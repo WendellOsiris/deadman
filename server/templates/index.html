@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="{{ pc_name }}">
+  <title>{{ pc_name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app">
+    <h1>{{ pc_name }}</h1>
+
+    <div class="status-pill offline" id="status-pill">
+      <span class="status-dot"></span>
+      <span id="status-text">checking...</span>
+    </div>
+
+    <div class="btn-wrap">
+      <svg class="hold-ring" viewBox="0 0 140 140" id="hold-ring" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="70" cy="70" r="65" id="hold-circle"/>
+      </svg>
+      <div class="power-btn" id="power-btn">
+        <svg class="power-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="power-stem" d="M28 8 L28 28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <path class="power-arc" d="M18 13.5 A18 18 0 1 0 38 13.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <circle class="power-glow" cx="28" cy="28" r="22" stroke="currentColor" stroke-width="1" opacity="0" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <p class="hint">tap to wake &middot; hold 5s for hard shutdown</p>
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

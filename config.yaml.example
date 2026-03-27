@@ -1,0 +1,7 @@
+wakpi_user: your_pi_username
+wakpi_host: your_pi_hostname_or_ip
+gaming_pc_ip: your_gaming_pc_ip
+pc_name: your_pc_name
+wake_command: "python3 ~/wake-pc.py"
+shutdown_command: "python3 ~/shutdown-pc.py"
+port: 5000

@@ -42,3 +42,22 @@ Add the web app URL to your home screen for a native app feel.
 ## Security
 
 Access is restricted to Tailscale network only. No additional authentication required.
+
+## Configuration
+
+Copy the example config and fill in your values:
+```bash
+cp config.yaml.example config.yaml
+```
+
+Edit `config.yaml`:
+```yaml
+wakpi_user: your_pi_username
+wakpi_host: your_pi_hostname_or_tailscale_name
+gaming_pc_ip: your_gaming_pc_local_ip
+wake_command: "python3 ~/wake-pc.py"
+shutdown_command: "python3 ~/shutdown-pc.py"
+port: 5000
+```
+
+`config.yaml` is gitignored and should never be committed.
