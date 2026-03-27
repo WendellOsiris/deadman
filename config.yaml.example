@@ -1,8 +1,13 @@
-wakpi_user: your_pi_username
-wakpi_host: your_pi_hostname_or_ip
-gaming_pc_ip: your_gaming_pc_ip
-pc_name: your_pc_name
+# Server — the always-on machine running this Flask app
+host: 100.x.x.x  # Tailscale IP of this machine (run `tailscale ip`)
+port: 5000
+
+# Pi — the Raspberry Pi wired to the gaming PC's power button
+wakpi_user: pi            # SSH user on the Pi
+wakpi_host: 100.x.x.x    # Tailscale IP of the Pi
 wake_command: "python3 ~/wake-pc.py"
 shutdown_command: "python3 ~/shutdown-pc.py"
-host: 100.x.x.x  # Tailscale IP — run `tailscale ip` to find yours
-port: 5000
+
+# Gaming PC — the machine being controlled
+gaming_pc_ip: 100.x.x.x  # Tailscale IP of the gaming PC (pinged for online status)
+pc_name: gaming pc        # Display name shown in the web UI

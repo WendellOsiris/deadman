@@ -4,7 +4,13 @@ A Raspberry Pi-based remote PC power controller. Uses a GPIO-controlled relay to
 
 ## How it works
 
-A Raspberry Pi Zero W sits inside your PC case wired to the motherboard's PWR SW header via a relay board. A Flask server on an always-on machine exposes a simple API. The web frontend lets you wake or hard-shutdown your PC from your phone.
+Three separate machines work together:
+
+- **Server** — an always-on machine (e.g. a home server or NAS) that runs the Flask app and serves the web UI
+- **Pi** — a Raspberry Pi Zero W that receives SSH commands from the server and triggers a relay wired to the gaming PC's motherboard power button header
+- **Gaming PC** — the machine being controlled; its Tailscale IP is pinged by the server to report online status
+
+All three are connected via Tailscale. The web UI is only accessible on the Tailscale network.
 
 ## Hardware
 
@@ -31,8 +37,8 @@ A Raspberry Pi Zero W sits inside your PC case wired to the motherboard's PWR SW
 ### Server
 
 1. Clone this repo
-2. `pip3 install flask --break-system-packages`
-3. Configure `WAKPI_HOST` and `GAMING_PC_IP` in `app.py`
+2. `sudo apt-get install python3-flask python3-yaml`
+3. Copy and fill in `config.yaml` (see Configuration below)
 4. Run with systemd
 
 ### iPhone
@@ -52,12 +58,16 @@ cp config.yaml.example config.yaml
 
 Edit `config.yaml`:
 ```yaml
-wakpi_user: your_pi_username
-wakpi_host: your_pi_hostname_or_tailscale_name
-gaming_pc_ip: your_gaming_pc_local_ip
+host: 100.x.x.x        # Tailscale IP of the server machine (run `tailscale ip`)
+port: 5000
+wakpi_user: pi          # SSH user on the Pi
+wakpi_host: 100.x.x.x  # Tailscale IP of the Pi
+gaming_pc_ip: 100.x.x.x  # Tailscale IP of the gaming PC (pinged for status)
+pc_name: gaming pc
 wake_command: "python3 ~/wake-pc.py"
 shutdown_command: "python3 ~/shutdown-pc.py"
-port: 5000
 ```
+
+Each machine has a different Tailscale IP — run `tailscale ip` on each to find them.
 
 `config.yaml` is gitignored and should never be committed.
