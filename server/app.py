@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template
 import subprocess
 import yaml
+import json
 import os
 
 app = Flask(__name__)
@@ -29,11 +30,19 @@ def ssh_wakpi(command):
 
 
 def ping_pc():
-    result = subprocess.run(
-        ['ping', '-c', '1', '-W', '1', GAMING_PC_IP],
-        capture_output=True
-    )
-    return result.returncode == 0
+    try:
+        result = subprocess.run(
+            ['tailscale', 'status', '--json'],
+            capture_output=True,
+            timeout=5
+        )
+        data = json.loads(result.stdout)
+        for peer in data.get('Peer', {}).values():
+            if GAMING_PC_IP in peer.get('TailscaleIPs', []):
+                return peer.get('Online', False)
+    except Exception:
+        pass
+    return False
 
 
 @app.route('/')
