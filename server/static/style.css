@@ -67,6 +67,44 @@ h1 {
   letter-spacing: 0.02em;
 }
 
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.refresh-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, background 0.2s;
+}
+
+.refresh-btn:hover {
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+}
+
+.refresh-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.refresh-btn.spinning svg {
+  animation: spin 0.5s ease-in-out;
+}
+
 .status-pill {
   display: flex;
   align-items: center;
@@ -100,92 +138,50 @@ h1 {
   background: currentColor;
 }
 
-.btn-wrap {
+.toggle-wrap {
+  padding: 20px;
+}
+
+.toggle {
+  width: 180px;
+  height: 80px;
+  border-radius: 40px;
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--border);
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-
-.hold-ring {
-  position: absolute;
-  width: 172px;
-  height: 172px;
-  pointer-events: none;
-}
-
-.hold-ring circle {
-  fill: none;
-  stroke: var(--danger-stroke);
-  stroke-width: 3;
-  stroke-dasharray: 408.41;
-  stroke-dashoffset: 408.41;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-}
-
-.hold-ring.resetting circle {
-  transition: stroke-dashoffset 0.3s ease-out;
-}
-
-.power-btn {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--bg);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s, transform 0.12s, border-color 0.15s, box-shadow 0.15s;
+  transition: background 0.3s, border-color 0.3s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
-  color: var(--text-primary);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.power-btn:active {
-  transform: scale(0.95);
-}
-
-.power-btn.pressing {
-  transform: scale(0.95);
-  background: var(--bg-secondary);
-  border-color: var(--text-tertiary);
-}
-
-.power-btn.success {
+.toggle.on {
+  background: var(--success-bg);
   border-color: var(--success-border);
-  color: var(--success-text);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--success-border) 20%, transparent);
 }
 
-.power-icon {
-  width: 56px;
-  height: 56px;
-  transition: color 0.1s;
+.toggle.pending {
+  opacity: 0.55;
+  pointer-events: none;
+  cursor: default;
 }
 
-.power-icon .power-glow {
-  transition: opacity 0.1s;
+.toggle-handle {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #ffffff;
+  top: 4px;
+  left: 4px;
+  transition: left 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
 }
 
-.power-btn.pressing .power-icon .power-glow {
-  opacity: 0.3;
-}
-
-.power-btn.pressing .power-stem,
-.power-btn.pressing .power-arc {
-  stroke-width: 3.5;
-}
-
-.hint {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  text-align: center;
-  line-height: 1.5;
+.toggle.on .toggle-handle {
+  left: 104px;
 }
 
 .toast {
